@@ -1,0 +1,27 @@
+.array-container {
+    min-height: 80px;
+    min-width: 1400px;
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    overflow: hidden;
+}
+
+.array-bar {
+    display: inline-block;
+    margin: 0 1px;
+    position: relative;
+}
+
+.barsUp {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.barsDown {
+    justify-content: center;
+    position: relative;
+}

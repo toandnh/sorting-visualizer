@@ -1,0 +1,85 @@
+.toolbar {
+    min-height: 80px;
+    min-width: 1450px;
+    height: 10vh;
+    width: 100vw;
+    background-color: rgb(247, 247, 229);
+}
+
+.toolbar div {
+    float: left;
+}
+
+.reset, .sliders, .options, .run {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.reset {
+    width: 15%;
+    position: relative;
+}
+
+.sliders {
+    width: 35%;
+    position: relative;
+}
+
+.options {
+    width: 35%;
+    position: relative;
+}
+
+.run {
+    width: 15%;
+    position: relative;
+}
+
+.resetBtn, .flipBtn, .optBtn, .current, .runBtn, .undoBtn {
+    min-width: 100px;
+    height: 50%;
+    border: 2px solid;
+    border-radius: 8px;
+    color: black;
+    font-size: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    transition-duration: 0.5s;
+}
+
+.resetBtn, .flipBtn, .optBtn, .runBtn, .undoBtn {
+    background-color: rgb(137, 211, 182);
+}
+
+.current {
+    background-color: rgb(255, 204, 51);
+}
+
+.resetBtn, .flipBtn {
+    width: 45%;
+}
+
+.resetBtn, .runBtn {
+    margin-right: 1%;
+}
+
+.optBtn, .current {
+    margin-right: 0.3%;
+    width: 22%;
+}
+
+.runBtn, .undoBtn {
+    width: 45%;
+}
+
+.resetBtn:hover, .flipBtn:hover, .optBtn:hover, .runBtn:hover, .undoBtn:hover {
+    background-color: rgb(229, 247, 247);
+    color: black;
+}
+
+.resetBtn:disabled, .flipBtn:disabled, .runBtn:disabled, .undoBtn:disabled {
+    opacity: 0.3;
+}
