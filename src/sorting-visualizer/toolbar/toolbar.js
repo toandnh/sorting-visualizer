@@ -1,67 +1,71 @@
-import React from 'react';
+import React from 'react'
 
-import { useSelector, useDispatch } from "react-redux/es/exports";
-import { Typography, Slider } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux/es/exports'
+import { Typography, Slider } from '@mui/material'
 
-import DisplayAnimation from "../sorting-algorithms/sort";
-import { setArray } from "../reducers/array";
-import { setAlgorithm } from '../reducers/algorithm';
-import { changeBarDirection } from '../reducers/barDirection';
-import { setSpeed } from '../reducers/speed';
-import { setNumBar } from '../reducers/numberOfBars';
-import { setValid } from '../reducers/validUndo';
-import { setStack } from '../reducers/stack';
+import DisplayAnimation from '../algorithms/sort'
 
-import { getRandomValuesArray } from "../utilities";
+import { setAlgorithm } from '../features/algorithm/algorithmSlice'
+import { setArray } from '../features/array/arraySlice'
+import { changeBarDirection } from '../features/bar-direction/barDirectionSlice'
+import { setSpeed } from '../features/speed/speedSlice'
+import { setNumBar } from '../features/number-of-bars/numberOfBarsSlice'
+import { setValid } from '../features/valid-undo/validUndoSlice'
+import { setStack } from '../features/stack/stackSlice'
 
-import './toolbar.css';
+import { getRandomValuesArray } from '../utilities'
+
+import globalOject from '../global'
+
+import './toolbar.css'
+
 
 const ToolBar = () => {
-    const isRunning = useSelector(state => state.running);
-    const values = useSelector(state => state.array);
-    const algorithm = useSelector(state => state.algorithm);
-    const numBar = useSelector(state => state.numBar);
-    const speed = useSelector(state => state.speed);
-    const barDir = useSelector(state => state.direction);
-    const valid = useSelector(state => state.valid);
-    const stack = useSelector(state => state.stack);
+    const isRunning = useSelector(state => state.running.value)
+    const values = useSelector(state => state.array.value)
+    const algorithm = useSelector(state => state.algorithm.value)
+    const numBar = useSelector(state => state.numBar.value)
+    const speed = useSelector(state => state.speed.value)
+    const barDir = useSelector(state => state.barDir.value)
+    const valid = useSelector(state => state.valid.value)
+    const stack = useSelector(state => state.stack.value)
 
-    const EXTREMES = useSelector(state => state.extremes);
-    const MAX_VALUE = EXTREMES.MAX;
-    const MIN_VALUE = EXTREMES.MIN;
+    const max = globalOject.MAX_VALUE;
+    const min = globalOject.MIN_VALUE;
 
     const dispatch = useDispatch();
 
     const handleSpeedChange = (event, newValue) => {
-        dispatch(setSpeed(newValue));
+        dispatch(setSpeed(newValue))
     }
 
     const handleNumBarsChange = (event, newValue) => {
-        dispatch(setNumBar(newValue));
-        dispatch(setArray(getRandomValuesArray(newValue, MAX_VALUE, MIN_VALUE)));
+        dispatch(setNumBar(newValue))
+        dispatch(setArray(getRandomValuesArray(newValue, max, min)))
     }
 
     const run = () => {
-        dispatch(setValid(true));
-        dispatch(setStack({arr: [...values], numBar: numBar, speed: speed, algo: algorithm, barDir: barDir}));
-        DisplayAnimation(values, algorithm, speed, dispatch);
+        dispatch(setValid(true))
+        dispatch(setStack({arr: [...values], numBar: numBar, speed: speed, algo: algorithm, barDir: barDir}))
+        DisplayAnimation(values, algorithm, speed, dispatch)
     }
 
     const undo = () => {
-        dispatch(setArray(stack.arr));
-        dispatch(setNumBar(stack.numBar));
-        dispatch(setSpeed(stack.speed));
-        dispatch(setAlgorithm(stack.algo));
-        if (stack.barDir !== barDir) {dispatch(changeBarDirection());}
+        dispatch(setArray(stack.arr))
+        dispatch(setNumBar(stack.numBar))
+        dispatch(setSpeed(stack.speed))
+        dispatch(setAlgorithm(stack.algo))
+        if (stack.barDir !== barDir) 
+            dispatch(changeBarDirection())
 
-        dispatch(setStack({arr: [], numBar: 0, speed: 0, algo: '', barDir: ''}));
-        dispatch(setValid(false));
+        dispatch(setStack({arr: [], numBar: 0, speed: 0, algo: '', barDir: ''}))
+        dispatch(setValid(false))
     }
 
     return (
         <div className='toolbar'>
             <div className='reset'>
-                <button onClick={() => dispatch(setArray(getRandomValuesArray(numBar, MAX_VALUE, MIN_VALUE)))} disabled={isRunning} className='resetBtn'>Reset</button>
+                <button onClick={() => dispatch(setArray(getRandomValuesArray(numBar, max, min)))} disabled={isRunning} className='resetBtn'>Reset</button>
                 <button onClick={() => dispatch(changeBarDirection())} disabled={isRunning} className='flipBtn'>Flip</button>
             </div>
             <div className='sliders'>
@@ -119,7 +123,7 @@ const ToolBar = () => {
                 <button onClick={undo} disabled={isRunning || !valid} className='undoBtn'>Undo</button>
             </div>
         </div>
-    );
+    )
 }
 
-export default ToolBar;
+export default ToolBar

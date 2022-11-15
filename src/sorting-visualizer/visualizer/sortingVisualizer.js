@@ -1,15 +1,17 @@
-import React from 'react';
+import React from 'react'
 
-import { useSelector } from 'react-redux/es/exports';
+import { useSelector } from 'react-redux/es/exports'
 
-import './sortingVisualizer.css';
+import globalObject from '../global'
+
+import './sortingVisualizer.css'
 
 const SortingVisualizer = () => {
-    const values = useSelector(state => state.array);
-    const EXTREMES = useSelector(state => state.extremes);
-    const scale = 94 / EXTREMES.MAX;
-    const barDirection = useSelector(state => state.direction);
-    const numBar = useSelector(state => state.numBar);
+    const values = useSelector(state => state.array.value)
+    const barDirection = useSelector(state => state.barDir.value)
+    const numBar = useSelector(state => state.numBar.value)
+
+    const scale = 94 / globalObject.MAX_VALUE
 
     return (
         <div className='array-container'>
